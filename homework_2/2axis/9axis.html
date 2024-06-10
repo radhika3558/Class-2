@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>D3 Axis</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg width="600" height="200"></svg>
+  <script>
+  </script>
+</body>
+
+      <script>
+        // Set the x-scale to scaleBand and label the ticks with the values from a given dataset ["Apple", "Banana", "Orange", "Mango"]. 
+        // Set the y-scale to scaleLinear and label the ticks with custom tick formatting, such as abbreviating large values, e.g., "1M" for 1,000,000.
+        
+        var svg = d3.select("svg");
+      
+       
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+      
+        var xScale = d3.scaleBand()
+                       .domain(["Apple", "Banana", "Orange", "Mango"])
+                       .range([0, width])
+                       .padding(0.1); 
+      
+        var yScale = d3.scaleLinear()
+                       .domain([0, 1000000]) 
+                       .range([height, 0]);
+      
+       
+        var xAxis = d3.axisBottom(xScale);
+        var yAxis = d3.axisLeft(yScale)
+                      .tickFormat(d3.format(".2s")); 
+      
+        
+        var g = svg.append("g")
+                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+        g.append("g")
+         .attr("class", "axis axis--x")
+         .attr("transform", "translate(0," + height + ")")
+         .call(xAxis);
+      
+        g.append("g")
+         .attr("class", "axis axis--y")
+         .call(yAxis)
+         .append("text")
+         .attr("fill", "#000")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 6)
+         .attr("dy", "0.71em")
+         .attr("text-anchor", "end");
+      
+      </script>
+
+
+
+</html>

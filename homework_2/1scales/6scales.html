@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Scatterplot</h1>
+    <svg id="scatterplot" width="600" height="400"></svg>
+  </body>
+
+  <script>
+    //Combine multiple scale types to create a visualization.
+    //Use scaleLinear to map a dataset of values [10, 20, 30, 40, 50] to a range of [0, 500] on the x-axis.
+    //Use scaleSqrt to map another dataset of values [100, 200, 300, 400, 500] to a range of [0, 100] on the y-axis.
+    //Plot the transformed values on a 2D scatter plot.
+
+    var dataset = [10, 20, 30, 40, 50];
+    var dataset2 = [100, 200, 300, 400, 500];
+
+    var xscale = d3.scaleLinear().domain([10, 50]).range([0, 500]);
+
+    var yscale = d3.scaleSqrt().domain([100, 500]).range([0, 100]);
+
+    var svg = d3.select("#scatterplot");
+
+
+    svg.selectAll("circle")
+      .data(dataset)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d, i) {
+        return xscale(d);
+      })
+      .attr("cy", function (d, i) {
+        return yscale(dataset2[i]);
+      })
+      .attr("r", 5)
+      .attr("fill", "red");
+  </script>
+</html>
